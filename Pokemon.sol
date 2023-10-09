@@ -7,6 +7,7 @@ contract Pokemon{
     string tipo;
     string nature;
     string ability;
+    address owner;
 
     constructor(string memory nomeParam, string memory tipoParam, string memory pokebolaParam, string memory natureParam, string memory abilityParam){
         nome = nomeParam;
@@ -14,12 +15,18 @@ contract Pokemon{
         tipo = tipoParam;   
         nature = natureParam;
         ability = abilityParam;
+        owner = msg.sender;
+    }
+
+    modifier onlyOwner(){
+        require(msg.sender == owner, "You are not allowed");
+        _;
     }
 
     function getPokemon() view public returns(string memory){
         return nome;
     }
-    function setPokemon(string memory nomePokemon) public    {
+    function setPokemon(string memory nomePokemon) public onlyOwner{
         nome = nomePokemon;
     }
 
@@ -34,11 +41,20 @@ contract Pokemon{
     function getNature() view public  returns(string memory){
         return nature;
     }
-    function setNature(string memory novaNature) public{
+    function setNature(string memory novaNature) public onlyOwner{
         nature = novaNature;
     }
 
     function getAbility() view public returns (string memory){
         return ability;
+    }
+    
+    function getOwner() public view returns (address) {
+        return owner;
+    }
+
+    function tradePokemon(address receiver) public payable onlyOwner{
+        require(msg.value >= 1 gwei);
+        owner = receiver;
     }
 }
