@@ -19,7 +19,7 @@ contract Pokemon{
     }
 
     modifier onlyOwner(){
-        require(msg.sender == owner, "You are not allowed");
+        require(msg.sender == owner, "VOCE NAO ESTA AUTORIZADO");
         _;
     }
 
@@ -53,8 +53,13 @@ contract Pokemon{
         return owner;
     }
 
-    function tradePokemon(address receiver) public payable onlyOwner{
-        require(msg.value >= 1 gwei);
+    function tradePokemon(address receiver) public onlyOwner{
         owner = receiver;
+    }
+
+    function purchasePokemon() public payable{
+        require(msg.value >= 1 gwei);
+        payable(owner).transfer(msg.value);
+        owner = msg.sender;
     }
 }
