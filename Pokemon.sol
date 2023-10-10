@@ -19,7 +19,7 @@ contract Pokemon{
     function getPokemon() view public returns(string memory){
         return nome;
     }
-    function setPokemon(string memory nomePokemon) public onlyOwner{
+    function setPokemon(string memory nomePokemon) public {
         nome = nomePokemon;
     }
 
@@ -34,7 +34,7 @@ contract Pokemon{
     function getNature() view public  returns(string memory){
         return nature;
     }
-    function setNature(string memory novaNature) public onlyOwner{
+    function setNature(string memory novaNature) public {
         nature = novaNature;
     }
 
