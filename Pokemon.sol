@@ -16,11 +16,6 @@ contract Pokemon{
         ability = abilityParam;
     }
 
-    modifier onlyOwner(){
-        require(msg.sender == owner, "VOCE NAO ESTA AUTORIZADO");
-        _;
-    }
-
     function getPokemon() view public returns(string memory){
         return nome;
     }
